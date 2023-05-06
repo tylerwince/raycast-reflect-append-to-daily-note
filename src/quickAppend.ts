@@ -2,8 +2,8 @@ import { appendToDailyNote, ReflectApiError } from "./api";
 import { getPreferenceValues, openExtensionPreferences, LaunchProps } from "@raycast/api";
 import { confirmAlert, showToast, Toast, closeMainWindow } from "@raycast/api";
 
-export default async (props: LaunchProps<{ arguments: Arguments.Reflect }>) => {
-  const preferences: Preferences.Reflect = getPreferenceValues();
+export default async (props: LaunchProps<{ arguments: Arguments.QuickAppend }>) => {
+  const preferences: Preferences.QuickAppend = getPreferenceValues();
 
   const toast = await showToast({
     style: Toast.Style.Animated,

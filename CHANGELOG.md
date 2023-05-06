@@ -1,3 +1,3 @@
-# reflect-append-to-daily-note Changelog
+# Reflect Append to Daily Note Changelog
 
-## [Initial Version] - 2023-05-04
+## [Initial Release] - 2023-05-06

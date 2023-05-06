@@ -1,8 +1,8 @@
 {
   "$schema": "https://www.raycast.com/schemas/extension.json",
   "name": "reflect-append-to-daily-note",
-  "title": "reflect-append-to-daily-note",
-  "description": "",
+  "title": "Append to Reflect Daily Note",
+  "description": "Append to your daily note in Reflect.app",
   "icon": "reflect.png",
   "author": "joshknowles",
   "categories": [
@@ -20,14 +20,14 @@
   ],
   "commands": [
     {
-      "name": "reflect",
-      "title": "Append to Daily Note",
+      "name": "quickAppend",
+      "title": "Quick Append",
       "subtitle": "Reflect",
-      "description": "Append to the daily note within the Reflect app.",
+      "description": "Quickly append to your Reflect daily note via command arguments or fallback text.",
       "keywords": [
-        "daily note",
-        "note today",
-        "daily"
+        "reflect",
+        "daily",
+        "append"
       ],
       "preferences": [
         {
@@ -39,8 +39,8 @@
         },
         {
           "name": "listName",
-          "title": "List Name",
-          "description": "Name of the list to append to",
+          "title": "Parent List (Optional)",
+          "description": "Parent list to append your notes within (i.e. 🗓 Daily Log)",
           "type": "textfield",
           "required": false
         }
@@ -49,7 +49,7 @@
         {
           "name": "text",
           "type": "text",
-          "placeholder": "Note",
+          "placeholder": "What's top of mind?",
           "required": true
         }
       ],
@@ -57,7 +57,7 @@
     }
   ],
   "dependencies": {
-    "@raycast/api": "^1.50.2",
+    "@raycast/api": "^1.50.4",
     "node-fetch": "^3.3.1"
   },
   "devDependencies": {
