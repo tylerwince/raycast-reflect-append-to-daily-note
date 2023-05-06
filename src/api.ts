@@ -1,5 +1,23 @@
-import fetch, { Response } from "node-fetch";
+import fetch from "node-fetch";
 import { getTodaysDateAsISOString } from "./utils";
+
+interface ErrorResponse {
+  error: {
+    type: string;
+    message: string;
+  };
+}
+
+export class ReflectApiError extends Error {
+  errorType: string;
+  message: string;
+
+  constructor(errorType: string, message: string) {
+    super(message);
+    this.errorType = errorType;
+    this.message = message;
+  }
+}
 
 // TODO: authorizationToken and graphId are typed as "any"" temporarily because the auto-generated types are not working
 export async function appendToDailyNote(authorizationToken: any, graphId: any, text: string, listName?: string) {
@@ -21,10 +39,10 @@ export async function appendToDailyNote(authorizationToken: any, graphId: any, t
     body: JSON.stringify(data),
   };
 
-  //TODO: Error handling
-  try {
-    await fetch(url, options);
-  } catch (error) {
-    console.error(error);
+  const response = await fetch(url, options);
+
+  if (!response.ok) {
+    const errorResponse = (await response.json()) as ErrorResponse;
+    throw new ReflectApiError(errorResponse.error.type, errorResponse.error.message);
   }
 }
