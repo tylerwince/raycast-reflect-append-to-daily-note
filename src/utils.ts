@@ -4,7 +4,7 @@ export function getTodaysDateAsISOString() {
   return new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString().substring(0, 10);
 }
 
-export function processArgumentText(text: string, preferences: Preferences.QuickAppend) {
+export function processArgumentText(text: string, preferences: Preferences.QuickAppend, selectedText: string) {
   if (preferences.prependTimestamp) {
     const now = new Date();
     const timestamp = now.toLocaleTimeString("en-US", {
@@ -12,6 +12,9 @@ export function processArgumentText(text: string, preferences: Preferences.Quick
       minute: "numeric",
     });
     text = `${timestamp} ${text}`;
+  }
+  if (selectedText) {
+    text = `${text}\n- ${selectedText}`;
   }
   return text;
 }

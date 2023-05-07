@@ -1,6 +1,6 @@
 import { appendToDailyNote, ReflectApiError } from "./api";
 import { processArgumentText } from "./utils";
-import { getPreferenceValues, openExtensionPreferences, LaunchProps } from "@raycast/api";
+import { getSelectedText, getPreferenceValues, openExtensionPreferences, LaunchProps } from "@raycast/api";
 import { confirmAlert, showToast, Toast, closeMainWindow } from "@raycast/api";
 
 export default async (props: LaunchProps<{ arguments: Arguments.QuickAppend }>) => {
@@ -12,7 +12,8 @@ export default async (props: LaunchProps<{ arguments: Arguments.QuickAppend }>) 
   });
 
   try {
-    props.arguments.text = processArgumentText(props.arguments.text, preferences)
+    const selectedText = await getSelectedText();
+    props.arguments.text = processArgumentText(props.arguments.text, preferences, selectedText)
     await appendToDailyNote(
       preferences.authorizationToken,
       preferences.graphId,
