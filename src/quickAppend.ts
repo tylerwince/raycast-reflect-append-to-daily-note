@@ -1,6 +1,6 @@
 import { appendToDailyNote, ReflectApiError } from "./api";
-import { processArgumentText } from "./utils";
-import { getSelectedText, getPreferenceValues, openExtensionPreferences, LaunchProps } from "@raycast/api";
+import { processArgumentText, collectNestedText } from "./utils";
+import { Clipboard, getSelectedText, getPreferenceValues, openExtensionPreferences, LaunchProps } from "@raycast/api";
 import { confirmAlert, showToast, Toast, closeMainWindow } from "@raycast/api";
 
 export default async (props: LaunchProps<{ arguments: Arguments.QuickAppend }>) => {
@@ -15,11 +15,16 @@ export default async (props: LaunchProps<{ arguments: Arguments.QuickAppend }>) 
     let selectedText: string | undefined;
     try {
       selectedText = await getSelectedText();
+    } catch (error) {
+      selectedText = undefined;
     }
-    catch (error) { 
-      selectedText = undefined; 
+    let clipboardText: string | undefined;
+    if (preferences.includeClipboard && !selectedText) {
+      clipboardText = await Clipboard.readText();
+      await Clipboard.clear();
     }
-    props.arguments.text = processArgumentText(props.arguments.text, preferences, selectedText)
+    const nestedText = collectNestedText(selectedText, clipboardText, preferences);
+    props.arguments.text = processArgumentText(props.arguments.text, preferences, nestedText);
     await appendToDailyNote(
       preferences.authorizationToken,
       preferences.graphId,

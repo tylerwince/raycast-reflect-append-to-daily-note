@@ -4,7 +4,25 @@ export function getTodaysDateAsISOString() {
   return new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString().substring(0, 10);
 }
 
-export function processArgumentText(text: string, preferences: Preferences.QuickAppend, selectedText: string | undefined) {
+export function collectNestedText(
+  selectedText: string | undefined,
+  clipboardText: string | undefined,
+  preferences: Preferences.QuickAppend
+) {
+  let nestedText = "";
+  if (selectedText) {
+    nestedText = selectedText;
+  } else if (preferences.includeClipboard && clipboardText) {
+    nestedText = `${clipboardText}`;
+  }
+  return nestedText;
+}
+
+export function processArgumentText(
+  text: string,
+  preferences: Preferences.QuickAppend,
+  nestedText: string | undefined
+) {
   if (preferences.prependTimestamp) {
     const now = new Date();
     const timestamp = now.toLocaleTimeString("en-US", {
@@ -13,8 +31,8 @@ export function processArgumentText(text: string, preferences: Preferences.Quick
     });
     text = `${timestamp} ${text}`;
   }
-  if (selectedText) {
-    text = `${text}\n- ${selectedText}`;
+  if (nestedText) {
+    text = `${text}\n- ${nestedText}`;
   }
   return text;
 }

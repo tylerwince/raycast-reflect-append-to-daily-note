@@ -50,6 +50,13 @@
           "type": "checkbox",
           "required": false,
           "label": "Prepend Timestamp"
+        },
+        {
+          "name": "includeClipboard",
+          "description": "Include clipboard contents in your note",
+          "type": "checkbox",
+          "required": false,
+          "label": "Include Clipboard Contents"
         }
       ],
       "arguments": [
