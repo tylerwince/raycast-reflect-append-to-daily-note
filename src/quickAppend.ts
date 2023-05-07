@@ -11,6 +11,14 @@ export default async (props: LaunchProps<{ arguments: Arguments.QuickAppend }>) 
   });
 
   try {
+    if (preferences.prependTimestamp) {
+      const now = new Date();
+      const timestamp = now.toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "numeric"
+      });
+      props.arguments.text = `${timestamp} ${props.arguments.text}`;
+    }
     await appendToDailyNote(
       preferences.authorizationToken,
       preferences.graphId,
