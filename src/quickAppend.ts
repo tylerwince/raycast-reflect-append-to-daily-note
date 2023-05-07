@@ -1,4 +1,5 @@
 import { appendToDailyNote, ReflectApiError } from "./api";
+import { processArgumentText } from "./utils";
 import { getPreferenceValues, openExtensionPreferences, LaunchProps } from "@raycast/api";
 import { confirmAlert, showToast, Toast, closeMainWindow } from "@raycast/api";
 
@@ -11,14 +12,7 @@ export default async (props: LaunchProps<{ arguments: Arguments.QuickAppend }>) 
   });
 
   try {
-    if (preferences.prependTimestamp) {
-      const now = new Date();
-      const timestamp = now.toLocaleTimeString("en-US", {
-        hour: "numeric",
-        minute: "numeric"
-      });
-      props.arguments.text = `${timestamp} ${props.arguments.text}`;
-    }
+    props.arguments.text = processArgumentText(props.arguments.text, preferences)
     await appendToDailyNote(
       preferences.authorizationToken,
       preferences.graphId,
