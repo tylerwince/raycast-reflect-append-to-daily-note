@@ -43,6 +43,13 @@
           "description": "Parent list to append your notes within (i.e. 🗓 Daily Log)",
           "type": "textfield",
           "required": false
+        },
+        {
+          "name": "prependTimestamp",
+          "description": "Prepend a timestamp to your note",
+          "type": "checkbox",
+          "required": false,
+          "label": "Prepend Timestamp"
         }
       ],
       "arguments": [
