@@ -12,7 +12,13 @@ export default async (props: LaunchProps<{ arguments: Arguments.QuickAppend }>) 
   });
 
   try {
-    const selectedText = await getSelectedText();
+    let selectedText: string | undefined;
+    try {
+      selectedText = await getSelectedText();
+    }
+    catch (error) { 
+      selectedText = undefined; 
+    }
     props.arguments.text = processArgumentText(props.arguments.text, preferences, selectedText)
     await appendToDailyNote(
       preferences.authorizationToken,
