@@ -1,10 +1,8 @@
 # Reflect Append to Daily Note
 
-![Reflect](./assets/reflect.png)
-
-Use [Raycast](http://raycast.com) to append to your daily note in [Reflect](https://reflect.app/).
-
-screenshots here
+## Use [Raycast](https://raycast.com) to append to your daily note in [Reflect](https://reflect.app/)
+![Append via Fallback Command](./metadata/reflect-append-to-daily-note-1.png)
+![Append via Command Argument](./metadata/reflect-append-to-daily-note-2.png)
 
 ## Authorization Token
 
