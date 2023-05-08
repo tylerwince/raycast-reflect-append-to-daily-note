@@ -9,7 +9,7 @@ export function getTodaysDateAsISOString() {
 
 export async function applyTextTransform(text: string, preferences: Preferences.QuickAppend) {
   if (preferences.prependTimestamp) {
-    const timestamp = format(new Date(), "h:maaa");
+    const timestamp = format(new Date(), "h:mmaaa");
     text = `${timestamp} ${text}`;
   }
   if (preferences.includeSelectedText) {
