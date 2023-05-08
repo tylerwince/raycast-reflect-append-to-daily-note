@@ -13,9 +13,7 @@ export default async (props: LaunchProps<{ arguments: Arguments.QuickAppend }>) 
 
   try {
     const text = applyTextTransform(props.fallbackText || props.arguments.text, preferences);
-
     await appendToDailyNote(preferences.authorizationToken, preferences.graphId, text, preferences.listName);
-
     toast.hide();
   } catch (error) {
     if (error instanceof ReflectApiError) {
