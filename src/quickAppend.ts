@@ -14,12 +14,7 @@ export default async (props: LaunchProps<{ arguments: Arguments.QuickAppend }>) 
   try {
     const text = processArgumentText(props.fallbackText || props.arguments.text, preferences);
 
-    await appendToDailyNote(
-      preferences.authorizationToken,
-      preferences.graphId,
-      text,
-      preferences.listName
-    );
+    await appendToDailyNote(preferences.authorizationToken, preferences.graphId, text, preferences.listName);
 
     toast.hide();
   } catch (error) {
