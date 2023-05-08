@@ -53,6 +53,20 @@
           "description": "Prepend a timestamp to your note",
           "type": "checkbox",
           "required": false
+        },
+        {
+          "name": "includeSelectedText",
+          "label": "Nest Selected Text (Optional)",
+          "description": "Nest selected text within your note",
+          "type": "checkbox",
+          "required": false
+        },
+        {
+          "name": "includeDeeplink",
+          "label": "Nest Deeplink URL (Optional)",
+          "description": "Nest a deeplink to the current URL within your note",
+          "type": "checkbox",
+          "required": false
         }
       ],
       "arguments": [
@@ -68,8 +82,9 @@
   ],
   "dependencies": {
     "@raycast/api": "^1.50.4",
+    "date-fns": "^2.23.0",
     "node-fetch": "^3.3.1",
-    "date-fns": "^2.23.0"
+    "run-applescript": "^6.1.0"
   },
   "devDependencies": {
     "@raycast/eslint-config": "1.0.5",
