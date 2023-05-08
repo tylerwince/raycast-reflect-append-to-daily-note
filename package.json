@@ -5,6 +5,9 @@
   "description": "Append to your daily note in Reflect.app",
   "icon": "reflect.png",
   "author": "joshknowles",
+  "contributors": [
+    "tylerwince"
+  ],
   "categories": [
     "Productivity"
   ],
@@ -46,10 +49,10 @@
         },
         {
           "name": "prependTimestamp",
+          "label": "Prepend Timestamp (Optional)",
           "description": "Prepend a timestamp to your note",
           "type": "checkbox",
-          "required": false,
-          "label": "Prepend Timestamp"
+          "required": false
         }
       ],
       "arguments": [
