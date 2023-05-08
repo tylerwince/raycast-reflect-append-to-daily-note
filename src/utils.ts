@@ -1,16 +1,13 @@
+import { format } from "date-fns";
+
 //Return the current date as an ISO string without the time (which is what the Reflect API expects)
 export function getTodaysDateAsISOString() {
-  const today = new Date();
-  return new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString().substring(0, 10);
+  return format(new Date(), "yyyy-MM-dd");
 }
 
-export function processArgumentText(text: string, preferences: Preferences.QuickAppend) {
+export function applyTextTransform(text: string, preferences: Preferences.QuickAppend) {
   if (preferences.prependTimestamp) {
-    const now = new Date();
-    const timestamp = now.toLocaleTimeString("en-US", {
-      hour: "numeric",
-      minute: "numeric",
-    });
+    const timestamp = format(new Date(), "h:maaa");
     text = `${timestamp} ${text}`;
   }
   return text;
