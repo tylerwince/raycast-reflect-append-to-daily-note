@@ -12,11 +12,12 @@ export default async (props: LaunchProps<{ arguments: Arguments.QuickAppend }>) 
   });
 
   try {
-    props.arguments.text = processArgumentText(props.arguments.text, preferences)
+    const text = processArgumentText(props.fallbackText || props.arguments.text, preferences);
+
     await appendToDailyNote(
       preferences.authorizationToken,
       preferences.graphId,
-      props.fallbackText || props.arguments.text,
+      text,
       preferences.listName
     );
 
