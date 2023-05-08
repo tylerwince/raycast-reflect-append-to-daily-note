@@ -33,20 +33,22 @@ async function addSelectedText(text: string) {
 async function addBrowserURL(text: string) {
   const url = await runAppleScript(`
   tell application "System Events" to set frontApp to name of first process whose frontmost is true
-  if (frontApp = "Safari") or (frontApp = "Webkit") then
-    using terms from application "Safari"
-      tell application frontApp to set currentTabUrl to URL of front document
-      tell application frontApp to set currentTabTitle to name of front document
-    end using terms from
-  else if (frontApp = "Google Chrome") or (frontApp = "Google Chrome Canary") or (frontApp = "Chromium") or (frontApp = "Arc") then
-    using terms from application "Google Chrome"
-      tell application frontApp to set currentTabUrl to URL of active tab of front window
-      tell application frontApp to set currentTabTitle to title of active tab of front window
-    end using terms from
-  else
-    return ""
-  end if
-  return currentTabUrl
+if (frontApp = "Safari") or (frontApp = "Webkit") then
+	using terms from application "Safari"
+		tell application frontApp to set currentTabUrl to URL of front document
+	end using terms from
+else if (frontApp = "Google Chrome") or (frontApp = "Google Chrome Canary") or (frontApp = "Chromium") then
+	using terms from application "Google Chrome"
+		tell application frontApp to set currentTabUrl to URL of active tab of front window
+	end using terms from
+else if (frontApp = "Arc") then
+	using terms from application "Arc"
+		tell application frontApp to set currentTabUrl to URL of active tab of window 1
+	end using terms from
+else
+	return ""
+end if
+return currentTabUrl
   `);
   if (url === "") {
     return text;
