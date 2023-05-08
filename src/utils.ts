@@ -7,18 +7,31 @@ export function getTodaysDateAsISOString() {
   return format(new Date(), "yyyy-MM-dd");
 }
 
-export async function addSelectedText(text: string) {
+export async function applyTextTransform(text: string, preferences: Preferences.QuickAppend) {
+  if (preferences.prependTimestamp) {
+    const timestamp = format(new Date(), "h:maaa");
+    text = `${timestamp} ${text}`;
+  }
+  if (preferences.includeSelectedText) {
+    text = await addSelectedText(text);
+  }
+  if (preferences.includeDeeplink) {
+    text = await addBrowserURL(text);
+  }
+  return text;
+}
+
+async function addSelectedText(text: string) {
   try {
-    let selectedText = await getSelectedText();
+    const selectedText = await getSelectedText();
     return `${text}\n- ${selectedText}`;
   } catch (error) {
     return text;
   }
-  
 }
 
-export async function addApplicationDeeplink(text:string) {
-  let url = await runAppleScript(`
+async function addBrowserURL(text: string) {
+  const url = await runAppleScript(`
   tell application "System Events" to set frontApp to name of first process whose frontmost is true
   if (frontApp = "Safari") or (frontApp = "Webkit") then
     using terms from application "Safari"
@@ -34,29 +47,9 @@ export async function addApplicationDeeplink(text:string) {
     return ""
   end if
   return currentTabUrl
-  `)
+  `);
   if (url === "") {
     return text;
   }
   return `${text}\n- ${url}`;
-}
-
-export async function applyTextTransform(text: string, preferences: Preferences.QuickAppend) {
-  if (preferences.prependTimestamp) {
-    const timestamp = format(new Date(), "h:maaa");
-    text = `${timestamp} ${text}`;
-  }
-  if (preferences.includeSelectedText) {
-    text = await addSelectedText(text);
-  }
-  if (preferences.includeDeeplink) {
-    text = await addApplicationDeeplink(text);
-  }
-  console.log(text);
-  return text;
-}
-
-export function getBrowserURL() {
-  let url: string | undefined;
-  return url;
 }
